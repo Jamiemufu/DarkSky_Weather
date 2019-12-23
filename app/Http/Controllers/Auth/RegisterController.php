@@ -65,6 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
+        //geolocate preferred_address and store
         $address = Geocoder::getCoordinatesForAddress($data['preferred_location']);
         $lat = $address['lat'];
         $lng = $address['lng'];

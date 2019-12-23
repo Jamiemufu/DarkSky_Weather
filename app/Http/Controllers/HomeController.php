@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DmitryIvanov\DarkSkyApi\DarkSkyApi;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $forecast = (new DarkSkyApi(env('DARK_SKY_KEY')))
+                    ->location(Auth::user()->lat, Auth::user()->lng)
+                    ->forecast();
+
         return view('home');
     }
 }
