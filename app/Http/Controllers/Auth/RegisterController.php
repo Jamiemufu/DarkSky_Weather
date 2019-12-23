@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Geocoder;
 
 class RegisterController extends Controller
 {
@@ -63,12 +64,18 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
+    {   
+        $address = Geocoder::getCoordinatesForAddress($data['preferred_location']);
+        $lat = $address['lat'];
+        $lng = $address['lng'];
+    
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'preferred_location' => $data['preferred_location']
+            'preferred_location' => $data['preferred_location'],
+            'lat' => $lat,
+            'lng' => $lng,
         ]);
     }
 }
