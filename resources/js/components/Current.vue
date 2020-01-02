@@ -1,6 +1,8 @@
 <template>
     <div class="text-center">
-        <h1>{{ summary }}</h1>
+        <h1>Current Summary - 
+            <span style="text-transform: capitalize;">{{ summary }}</span>
+        </h1>        
         <canvas id="icon" width="150" height="150"></canvas>
         <br><br>
         <div class="current">
@@ -41,11 +43,6 @@
             });    
             skycons.add(document.getElementById("icon"), this.icon);
             skycons.play(); 
-        },
-        computed: {
-            summary() {
-                return this.summary
-            },
         },
         methods: {
             convertTime(time) {

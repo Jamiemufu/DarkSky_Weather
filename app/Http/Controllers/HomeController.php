@@ -35,12 +35,12 @@ class HomeController extends Controller
                     ->forecast(['currently', 'daily']);
         
         $current = $forecast->currently()->toArray();
-        $daily = $forecast->daily()->toArray();
+        $weekly = $forecast->daily()->toArray();
 
         // dd($daily);
         // dd($today);
-
-        return view('page.home', compact('current', 'daily', 'location'));
+        
+        return view('page.home', compact('current', 'weekly', 'location'));
     }
 
     /**

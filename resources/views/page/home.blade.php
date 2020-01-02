@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="card-body">
-                    @if (session('status'))
+                    @if (session('status'))s
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
@@ -29,6 +29,17 @@
                         :icon="{{ json_encode($current['icon']) }}"                        
                         :summary="{{ json_encode($current['icon']) }}">
                     </current>
+                    <br><br>
+
+                    @for($i = 0; $i < count($weekly['data']); $i++)
+                        <weekly
+                            :weekly="{{ json_encode($weekly['data'][$i]) }}"
+                            :icon="{{ json_encode($weekly['data'][$i]['icon']) }}"
+                            :count="{{ $i }}">
+                        </weekly>
+                    @endfor
+
+                    @dump($weekly)
                 </div>
             </div>
         </div>
