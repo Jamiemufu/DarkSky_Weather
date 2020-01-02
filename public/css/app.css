@@ -11356,3 +11356,65 @@ a.text-dark:focus {
   }
 }
 
+.card-header {
+  background-color: #343A41;
+  color: #ffffff;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  align-content: center;
+  height: 60px;
+}
+
+.card-header i {
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.card-header form input {
+  min-width: 200px;
+  height: 25px;
+  border-radius: 2px;
+  border: 0px;
+  padding: 5px;
+}
+
+.card-header form button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.current {
+  margin: 0 auto;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.current .item {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  background-color: #343A42;
+  color: #ffffff;
+  text-align: center;
+}
+
+.current .item span {
+  text-transform: capitalize;
+}
+
