@@ -6,3 +6,59 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.card-header {
+    background-color: #343A41;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    height: 60px;
+
+    i {
+        font-size: 15px;
+        color: #ffffff;
+    }
+
+    form {
+
+        input {
+            min-width: 200px;
+            height: 25px;
+            border-radius: 2px;
+            border: 0px;
+            padding: 5px;
+        }
+
+        button {
+            background: none;
+            border: none;
+            outline: none;
+        }
+    }
+}
+
+.current {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .item {        
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #ffffff;
+        border-radius: 5px;   
+        background-color: #343A42;
+        color: #ffffff; 
+        text-align: center;
+
+        span {
+            text-transform: capitalize;
+        }
+    }
+}
