@@ -1,0 +1,28 @@
+.card-header {
+    background-color: #343A41;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    height: 60px;
+    i {
+        font-size: 15px;
+        color: #ffffff;
+    }
+    form {
+        input {
+            min-width: 200px;
+            height: 25px;
+            border-radius: 2px;
+            border: 0px;
+            padding: 5px;
+        }
+        button {
+            background: none;
+            border: none;
+            outline: none;
+        }
+    }
+}

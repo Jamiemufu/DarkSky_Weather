@@ -32,15 +32,11 @@ class HomeController extends Controller
 
         $forecast = (new DarkSkyApi(env('DARK_SKY_KEY')))
                     ->location($lat, $lng)
-                    ->forecast(['currently', 'daily']);
+                    ->forecast();
         
-        $current = $forecast->currently()->toArray();
-        $weekly = $forecast->daily()->toArray();
-
-        // dd($daily);
-        // dd($today);
-        
-        return view('page.home', compact('current', 'weekly', 'location'));
+        $forecast = $forecast->toArray();
+    
+        return view('page.home', compact('forecast', 'location'));
     }
 
     /**
@@ -57,11 +53,10 @@ class HomeController extends Controller
 
         $forecast = (new DarkSkyApi(env('DARK_SKY_KEY')))
                     ->location($coords['lat'], $coords['lng'])
-                    ->forecast(['currently', 'daily']);
+                    ->forecast();
         
-        $current = $forecast->currently()->toArray();
-        $daily = $forecast->daily()->toArray();
-
-        return view('page.home', compact('current', 'daily', 'location'));
+        $forecast = $forecast->toArray();
+    
+        return view('page.home', compact('forecast', 'location'));
     }
 }
