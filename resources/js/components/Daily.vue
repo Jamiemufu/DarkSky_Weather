@@ -26,6 +26,7 @@ export default {
         //get and set icon
         //main, moon, fog, fogbank, light_cloud, cloud, dark_cloud,
         // thunder, snow, hail, sleet, wind, leaf, rain, sun
+        var currentIcon = this.icon
         var skycons = new Skycons({
             monochrome: false,
             color: {
@@ -35,22 +36,20 @@ export default {
         });
         skycons.add("icon" + this.daily.time, this.icon);
         skycons.play();
+
+        // list of properties to remove that we don't need
+        var list = [
+            "time","summary", "precipIntensity", "precipIntensityMax", "precipIntensityMaxTime", "precipType", "temperatureHighTime", "temperatureLowTime", "apparentTemperatureHigh", "apparentTemperatureHighTime", "apparentTemperatureLow", "apparentTemperatureLowTime", "dewPoint", "windGust", "windGustTime", "windBearing", "uvIndexTime", "ozone", "temperatureMin", "temperatureMinTime", "temperatureMax", "temperatureMaxTime", "apparentTemperatureMin", "apparentTemperatureMinTime", "apparentTemperatureMax", "apparentTemperatureMaxTime"
+        ]
+
+        list.forEach(element => {
+            this.$delete(this.daily, element)
+        });
     },
     methods: {
         getDay(time) {
-            var origDate = new Date(time * 1000);
-            var days = [
-                "Sunday",
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday"
-            ];
-            var day = days[origDate.getDay()];
-            var formattedDate = day;
-            return formattedDate;
+            //from Current
+            return this.$parent.getDay(time);
         },
         update (event) {
             this.$emit('clicked', this.daily);

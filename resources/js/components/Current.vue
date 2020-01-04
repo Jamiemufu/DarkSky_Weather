@@ -1,10 +1,9 @@
 <template>
     <div>
         <div class="daily-container">
-            <!-- loop through days -->
+            <!-- loop through days and set component for each day-->
             <div v-for="item in daily">
-                <daily :daily="item" :icon="item['icon']" :summary="item['summary']" @clicked="onClickChild">
-                </daily>
+                <daily :daily="item" :icon="item['icon']" :summary="item['summary']" @clicked="onClickChild"></daily>
             </div>
         </div>
         <div class="selected-container">
@@ -15,85 +14,22 @@
                     </h5>
                 </div>
                 <div class="card">
-
-                    <div class="card-summary">
+                    <div class="card-">
                         <canvas :id="currentIcon" width="150" height="150"></canvas>
                         <br>
                         <h3><span>{{ summary }}</span></h3>
                     </div>
-
                     <div class="current-details">
-
-                        <div class="item">
-                            <i class="las la-tint" style="color: lightblue !important;"></i> <br />
-                            {{ rainChance[0] }} <br />
-                            <span>{{ rainChance[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-thermometer-full" style="color: red !important;"></i> <br />
-                            {{ temperatureHigh[0] }} <br />
-                            <span>{{ temperatureHigh[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-thermometer-empty" style="color: lightblue !important;"></i> <br />
-                            {{ temperatureLow[0] }} <br />
-                            <span>{{ temperatureLow[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-smog" style="color: grey !important;"></i> <br />
-                            {{ visibility[0] }} <br />
-                            <span>{{ visibility[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-wind" style="color: grey !important;"></i> <br />
-                            {{ windSpeed[0] }} <br />
-                            <span>{{ windSpeed[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-cloud" style="color: grey !important;"></i> <br />
-                            {{ cloudCover[0] }} <br />
-                            <span>{{ cloudCover[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="lar la-sun" style="color: orange !important;"></i> <br />
-                            {{ sunriseTime[0] }} <br />
-                            <span>{{ convertTime(sunriseTime[1]) }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-cloud-sun" style="color: maroon !important;"></i> <br />
-                            {{ sunsetTime[0] }} <br />
-                            <span>{{ convertTime(sunsetTime[1]) }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-moon" style="color: silver !important;"></i> <br />
-                            {{ moonPhase[0] }} <br />
-                            <span>{{ moonPhase[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-exchange-alt" style="color: blue !important;"></i> <br />
-                            {{ pressure[0] }} <br />
-                            <span>{{ pressure[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-water" style="color: lightblue !important;"></i> <br />
-                            {{ humidity[0] }} <br />
-                            <span>{{ humidity[1] }}</span>
-                        </div>
-
-                        <div class="item">
-                            <i class="las la-glasses" style="color: red !important;"></i> <br />
-                            {{ uvIndex[0] }} <br />
-                            <span>{{ uvIndex[1] }}</span>
+                        <!-- get all items from daily component -->
+                        <div v-for="item, index in child">
+                            <!-- hide icon/time item -->
+                            <div v-if="index == 'icon' || index == 'time'"></div>
+                            <div v-else>
+                                <div class="item">
+                                    <i v-html="getIcons(index)"></i>
+                                    {{index}}<br>{{item}}
+                                </div>
+                            </div>
                         </div>
                         <!-- end of items -->
                     </div>
@@ -109,7 +45,9 @@
 
 <script>
     export default {
-        props: ["daily"],
+        props: [
+            "daily", "icon"
+        ],
         data: function () {
             // store store data from child components
             return {
@@ -125,67 +63,7 @@
                 return this.child.time;
             },
             currentIcon() {
-                return 'icon' + this.daily[0].icon;
-            },
-            rainChance() {
-                let arr = ["Rain Chance"];
-                arr.push(this.child.precipProbability);
-                return arr;
-            },
-            temperatureHigh() {
-                let arr = ["High Temperature"];
-                arr.push(this.child.temperatureHigh + "°C");
-                return arr;
-            },
-            temperatureLow() {
-                let arr = ["Low Temperature"];
-                arr.push(this.child.temperatureLow + "°C");
-                return arr;
-            },
-            visibility() {
-                let arr = ["Visibility"];
-                arr.push(this.child.visibility);
-                return arr;
-            },
-            windSpeed() {
-                let arr = ["Wind Speed"];
-                arr.push(this.child.windSpeed);
-                return arr;
-            },
-            cloudCover() {
-                let arr = ["Cloud Cover"];
-                arr.push(this.child.cloudCover);
-                return arr;
-            },
-            sunriseTime() {
-                let arr = ["Sunrise Time"];
-                arr.push(this.child.sunriseTime);
-                return arr;
-            },
-            sunsetTime() {
-                let arr = ["Sunset Time"];
-                arr.push(this.child.sunsetTime);
-                return arr;
-            },
-            moonPhase() {
-                let arr = ["Moon Phase"];
-                arr.push(this.child.moonPhase);
-                return arr;
-            },
-            pressure() {
-                let arr = ["Pressure"];
-                arr.push(this.child.pressure);
-                return arr;
-            },
-            humidity() {
-                let arr = ["Humidity"];
-                arr.push(this.child.humidity);
-                return arr;
-            },
-            uvIndex() {
-                let arr = ["UV Index"];
-                arr.push(this.child.uvIndex);
-                return arr;
+                return 'icon' + this.icon;
             },
         },
         mounted() {
@@ -197,11 +75,56 @@
                     wind: "#F00"
                 }
             });
-            skycons.add("icon" + this.daily[0].icon, Skycons.PARTLY_CLOUDY_NIGHT);
+            // set id and icon
+            skycons.add("icon" + this.icon, this.icon);
             skycons.play();
+            //get today for the mounted dataset
             this.child = this.daily[0]
         },
         methods: {
+            //switch statements for all icons we need
+            getIcons(index) {
+                switch (index) {
+                    case 'precipProbability':
+                        return "<i class='las la-tint' style='color: lightblue !important;'></i> <br />"
+                        break;
+                    case 'temperatureHigh':
+                        return "<i class='las la-thermometer-full' style='color: red !important;'></i> <br />"
+                        break;
+                    case 'temperatureLow':
+                        return "<i class='las la-thermometer-empty' style='color: lightblue !important;'></i> <br />"
+                        break;
+                    case 'visibility':
+                        return "<i class='las la-smog' style='color: lightgrey !important;'></i> <br />"
+                        break;
+                    case 'windSpeed':
+                        return "<i class='las la-wind' style='color: grey !important;'></i> <br />"
+                        break;
+                    case 'cloudCover':
+                        return "<i class='las la-cloud' style='color: grey !important;'></i> <br />"
+                        break;
+                    case 'sunriseTime':
+                        return "<i class='las la-sun' style='color: orange !important;'></i> <br />"
+                        break;
+                    case 'sunsetTime':
+                        return "<i class='las la-cloud-sun' style='color: brown !important;'></i> <br />"
+                        break;
+                    case 'moonPhase':
+                        return "<i class='las la-moon' style='color:silver !important;'></i> <br />"
+                        break;
+                    case 'pressure':
+                        return "<i class='las la-exchange-alt' style='color: blue !important;'></i> <br />"
+                        break;
+                    case 'humidity':
+                        return "<i class='las la-water' style='color: lightblue !important;'></i> <br />"
+                        break;
+                    case 'uvIndex':
+                        return "<i class='las la-glasses' style='color: red !important;'></i> <br />"
+                        break;
+                    default:
+                        break;
+                }
+            },
             // data being passed back from child
             onClickChild(value) {
                 this.child = value;
@@ -213,7 +136,7 @@
                         wind: "#F00"
                     }
                 });
-                skycons.set("icon" + this.daily[0].icon, this.child.icon);
+                skycons.set("icon" + this.icon, this.child.icon);
                 skycons.play();
             },
             //unix timestamp functions

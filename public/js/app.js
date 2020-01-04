@@ -1883,72 +1883,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["daily"],
+  props: ["daily", "icon"],
   data: function data() {
     // store store data from child components
     return {
@@ -1964,67 +1900,7 @@ __webpack_require__.r(__webpack_exports__);
       return this.child.time;
     },
     currentIcon: function currentIcon() {
-      return 'icon' + this.daily[0].icon;
-    },
-    rainChance: function rainChance() {
-      var arr = ["Rain Chance"];
-      arr.push(this.child.precipProbability);
-      return arr;
-    },
-    temperatureHigh: function temperatureHigh() {
-      var arr = ["High Temperature"];
-      arr.push(this.child.temperatureHigh + "°C");
-      return arr;
-    },
-    temperatureLow: function temperatureLow() {
-      var arr = ["Low Temperature"];
-      arr.push(this.child.temperatureLow + "°C");
-      return arr;
-    },
-    visibility: function visibility() {
-      var arr = ["Visibility"];
-      arr.push(this.child.visibility);
-      return arr;
-    },
-    windSpeed: function windSpeed() {
-      var arr = ["Wind Speed"];
-      arr.push(this.child.windSpeed);
-      return arr;
-    },
-    cloudCover: function cloudCover() {
-      var arr = ["Cloud Cover"];
-      arr.push(this.child.cloudCover);
-      return arr;
-    },
-    sunriseTime: function sunriseTime() {
-      var arr = ["Sunrise Time"];
-      arr.push(this.child.sunriseTime);
-      return arr;
-    },
-    sunsetTime: function sunsetTime() {
-      var arr = ["Sunset Time"];
-      arr.push(this.child.sunsetTime);
-      return arr;
-    },
-    moonPhase: function moonPhase() {
-      var arr = ["Moon Phase"];
-      arr.push(this.child.moonPhase);
-      return arr;
-    },
-    pressure: function pressure() {
-      var arr = ["Pressure"];
-      arr.push(this.child.pressure);
-      return arr;
-    },
-    humidity: function humidity() {
-      var arr = ["Humidity"];
-      arr.push(this.child.humidity);
-      return arr;
-    },
-    uvIndex: function uvIndex() {
-      var arr = ["UV Index"];
-      arr.push(this.child.uvIndex);
-      return arr;
+      return 'icon' + this.icon;
     }
   },
   mounted: function mounted() {
@@ -2035,12 +1911,69 @@ __webpack_require__.r(__webpack_exports__);
         cloud: "#F00",
         wind: "#F00"
       }
-    });
-    skycons.add("icon" + this.daily[0].icon, Skycons.PARTLY_CLOUDY_NIGHT);
-    skycons.play();
+    }); // set id and icon
+
+    skycons.add("icon" + this.icon, this.icon);
+    skycons.play(); //get today for the mounted dataset
+
     this.child = this.daily[0];
   },
   methods: {
+    //switch statements for all icons we need
+    getIcons: function getIcons(index) {
+      switch (index) {
+        case 'precipProbability':
+          return "<i class='las la-tint' style='color: lightblue !important;'></i> <br />";
+          break;
+
+        case 'temperatureHigh':
+          return "<i class='las la-thermometer-full' style='color: red !important;'></i> <br />";
+          break;
+
+        case 'temperatureLow':
+          return "<i class='las la-thermometer-empty' style='color: lightblue !important;'></i> <br />";
+          break;
+
+        case 'visibility':
+          return "<i class='las la-smog' style='color: lightgrey !important;'></i> <br />";
+          break;
+
+        case 'windSpeed':
+          return "<i class='las la-wind' style='color: grey !important;'></i> <br />";
+          break;
+
+        case 'cloudCover':
+          return "<i class='las la-cloud' style='color: grey !important;'></i> <br />";
+          break;
+
+        case 'sunriseTime':
+          return "<i class='las la-sun' style='color: orange !important;'></i> <br />";
+          break;
+
+        case 'sunsetTime':
+          return "<i class='las la-cloud-sun' style='color: brown !important;'></i> <br />";
+          break;
+
+        case 'moonPhase':
+          return "<i class='las la-moon' style='color:silver !important;'></i> <br />";
+          break;
+
+        case 'pressure':
+          return "<i class='las la-exchange-alt' style='color: blue !important;'></i> <br />";
+          break;
+
+        case 'humidity':
+          return "<i class='las la-water' style='color: lightblue !important;'></i> <br />";
+          break;
+
+        case 'uvIndex':
+          return "<i class='las la-glasses' style='color: red !important;'></i> <br />";
+          break;
+
+        default:
+          break;
+      }
+    },
     // data being passed back from child
     onClickChild: function onClickChild(value) {
       this.child = value; //re-set icon
@@ -2052,7 +1985,7 @@ __webpack_require__.r(__webpack_exports__);
           wind: "#F00"
         }
       });
-      skycons.set("icon" + this.daily[0].icon, this.child.icon);
+      skycons.set("icon" + this.icon, this.child.icon);
       skycons.play();
     },
     //unix timestamp functions
@@ -2109,9 +2042,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this = this;
+
     //get and set icon
     //main, moon, fog, fogbank, light_cloud, cloud, dark_cloud,
     // thunder, snow, hail, sleet, wind, leaf, rain, sun
+    var currentIcon = this.icon;
     var skycons = new Skycons({
       monochrome: false,
       color: {
@@ -2120,15 +2056,17 @@ __webpack_require__.r(__webpack_exports__);
       }
     });
     skycons.add("icon" + this.daily.time, this.icon);
-    skycons.play();
+    skycons.play(); // list of properties to remove that we don't need
+
+    var list = ["time", "summary", "precipIntensity", "precipIntensityMax", "precipIntensityMaxTime", "precipType", "temperatureHighTime", "temperatureLowTime", "apparentTemperatureHigh", "apparentTemperatureHighTime", "apparentTemperatureLow", "apparentTemperatureLowTime", "dewPoint", "windGust", "windGustTime", "windBearing", "uvIndexTime", "ozone", "temperatureMin", "temperatureMinTime", "temperatureMax", "temperatureMaxTime", "apparentTemperatureMin", "apparentTemperatureMinTime", "apparentTemperatureMax", "apparentTemperatureMaxTime"];
+    list.forEach(function (element) {
+      _this.$delete(_this.daily, element);
+    });
   },
   methods: {
     getDay: function getDay(time) {
-      var origDate = new Date(time * 1000);
-      var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      var day = days[origDate.getDay()];
-      var formattedDate = day;
-      return formattedDate;
+      //from Current
+      return this.$parent.getDay(time);
     },
     update: function update(event) {
       this.$emit('clicked', this.daily);
@@ -38205,7 +38143,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-summary" }, [
+          _c("div", { staticClass: "card-" }, [
             _c("canvas", {
               attrs: { id: _vm.currentIcon, width: "150", height: "150" }
             }),
@@ -38215,191 +38153,29 @@ var render = function() {
             _c("h3", [_c("span", [_vm._v(_vm._s(_vm.summary))])])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "current-details" }, [
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-tint",
-                staticStyle: { color: "lightblue !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.rainChance[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.rainChance[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-thermometer-full",
-                staticStyle: { color: "red !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " +
-                  _vm._s(_vm.temperatureHigh[0]) +
-                  " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.temperatureHigh[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-thermometer-empty",
-                staticStyle: { color: "lightblue !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " +
-                  _vm._s(_vm.temperatureLow[0]) +
-                  " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.temperatureLow[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-smog",
-                staticStyle: { color: "grey !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.visibility[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.visibility[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-wind",
-                staticStyle: { color: "grey !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.windSpeed[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.windSpeed[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-cloud",
-                staticStyle: { color: "grey !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.cloudCover[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.cloudCover[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "lar la-sun",
-                staticStyle: { color: "orange !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.sunriseTime[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.convertTime(_vm.sunriseTime[1])))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-cloud-sun",
-                staticStyle: { color: "maroon !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.sunsetTime[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.convertTime(_vm.sunsetTime[1])))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-moon",
-                staticStyle: { color: "silver !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.moonPhase[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.moonPhase[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-exchange-alt",
-                staticStyle: { color: "blue !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.pressure[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.pressure[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-water",
-                staticStyle: { color: "lightblue !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.humidity[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.humidity[1]))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item" }, [
-              _c("i", {
-                staticClass: "las la-glasses",
-                staticStyle: { color: "red !important" }
-              }),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(
-                "\n                        " + _vm._s(_vm.uvIndex[0]) + " "
-              ),
-              _c("br"),
-              _vm._v(" "),
-              _c("span", [_vm._v(_vm._s(_vm.uvIndex[1]))])
-            ])
-          ])
+          _c(
+            "div",
+            { staticClass: "current-details" },
+            _vm._l(_vm.child, function(item, index) {
+              return _c("div", [
+                index == "icon" || index == "time"
+                  ? _c("div")
+                  : _c("div", [
+                      _c("div", { staticClass: "item" }, [
+                        _c("i", {
+                          domProps: { innerHTML: _vm._s(_vm.getIcons(index)) }
+                        }),
+                        _vm._v(
+                          "\n                                " + _vm._s(index)
+                        ),
+                        _c("br"),
+                        _vm._v(_vm._s(item) + "\n                            ")
+                      ])
+                    ])
+              ])
+            }),
+            0
+          )
         ])
       ])
     ])
