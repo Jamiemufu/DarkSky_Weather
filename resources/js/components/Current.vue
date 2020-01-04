@@ -9,21 +9,24 @@
         <div class="selected-container">
             <div class="current-container text-center">
                 <div class="card-header">
+                     <h5>{{ getDay(date) }} - {{ convertDate(date) }}</h5>
                     <h5>
-                        <span>{{ getDay(date) }}</span>
+                        <span class="location">details for {{ location }}</span>
                     </h5>
+                   
                 </div>
                 <div class="card">
-                    <div class="card-">
+                    <div>
                         <canvas :id="currentIcon" width="150" height="150"></canvas>
                         <br>
-                        <h3><span>{{ summary }}</span></h3>
+                        <h3><span>{{ summary }}</span></h3><br>
+                        
                     </div>
                     <div class="current-details">
                         <!-- get all items from daily component -->
                         <div v-for="item, index in child">
                             <!-- hide icon/time item -->
-                            <div v-if="index == 'icon' || index == 'time'"></div>
+                            <div v-if="index == 'icon' || index == 'time' || index == 'summary'"></div>
                             <div v-else>
                                 <div class="item">
                                     <i v-html="getIcons(index)"></i>
@@ -46,7 +49,7 @@
 <script>
     export default {
         props: [
-            "daily", "icon"
+            "daily", "icon", "location"
         ],
         data: function () {
             // store store data from child components
@@ -64,6 +67,9 @@
             },
             currentIcon() {
                 return 'icon' + this.icon;
+            },
+            currentLocation() {
+                return this.location;
             },
         },
         mounted() {
@@ -140,6 +146,15 @@
                 skycons.play();
             },
             //unix timestamp functions
+            convertDate(time) {
+                var a = new Date(time * 1000);
+                    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                    var year = a.getFullYear();
+                    var month = months[a.getMonth()];
+                    var date = a.getDate();
+                    var formattedTime = date + ' ' + month + ' ' + year;
+                    return formattedTime;
+            },
             getDay(time) {
                 var origDate = new Date(time * 1000);
                 var days = [

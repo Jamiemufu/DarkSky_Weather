@@ -11423,6 +11423,10 @@ a.text-dark:focus {
   padding: 0;
 }
 
+.selected-container .current-container .card-header .location {
+  text-transform: capitalize;
+}
+
 .selected-container .current-container .card {
   width: 100%;
   padding: 15px;
@@ -11504,7 +11508,7 @@ a.text-dark:focus {
   -webkit-box-align: center;
           align-items: center;
   margin: 25px;
-  width: 150px;
+  width: 200px;
   height: 150px;
 }
 
@@ -11522,19 +11526,38 @@ a.text-dark:focus {
 .daily-container .day-container .card {
   height: 150px;
   padding: 15px;
-  width: 150px;
+  width: 200px;
   justify-content: space-around;
+}
+
+.daily-container .day-container .card p {
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  font-size: 10px;
 }
 
 .daily-container .day-container canvas {
   margin: 0 auto;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .daily-container .day-container h5 {
   font-size: 12px;
   margin: 0;
+}
+
+.location .card {
+  padding: 15px;
+  padding-top: 25px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+
+.location .card .item {
+  margin: 5px;
 }
 
 .container-fluid,

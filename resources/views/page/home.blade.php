@@ -17,7 +17,7 @@
                 </form>
             </div>
         </div>
-        <current :daily="{{json_encode($forecast['daily']['data'])}}" :icon="{{json_encode($forecast['daily']['data'][0]['icon'])}}"></current>
+        <current :daily="{{json_encode($forecast['daily']['data'])}}" :icon="{{json_encode($forecast['daily']['data'][0]['icon'])}}" :location="{{json_encode($location)}}"></current>
     </div>
 </div>
 @endsection

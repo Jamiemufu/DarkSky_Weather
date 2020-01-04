@@ -1883,8 +1883,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["daily", "icon"],
+  props: ["daily", "icon", "location"],
   data: function data() {
     // store store data from child components
     return {
@@ -1901,6 +1904,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     currentIcon: function currentIcon() {
       return 'icon' + this.icon;
+    },
+    currentLocation: function currentLocation() {
+      return this.location;
     }
   },
   mounted: function mounted() {
@@ -1989,6 +1995,15 @@ __webpack_require__.r(__webpack_exports__);
       skycons.play();
     },
     //unix timestamp functions
+    convertDate: function convertDate(time) {
+      var a = new Date(time * 1000);
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var year = a.getFullYear();
+      var month = months[a.getMonth()];
+      var date = a.getDate();
+      var formattedTime = date + ' ' + month + ' ' + year;
+      return formattedTime;
+    },
     getDay: function getDay(time) {
       var origDate = new Date(time * 1000);
       var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -2034,6 +2049,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["daily", "icon", "summary"],
   computed: {
@@ -2058,7 +2074,7 @@ __webpack_require__.r(__webpack_exports__);
     skycons.add("icon" + this.daily.time, this.icon);
     skycons.play(); // list of properties to remove that we don't need
 
-    var list = ["time", "summary", "precipIntensity", "precipIntensityMax", "precipIntensityMaxTime", "precipType", "temperatureHighTime", "temperatureLowTime", "apparentTemperatureHigh", "apparentTemperatureHighTime", "apparentTemperatureLow", "apparentTemperatureLowTime", "dewPoint", "windGust", "windGustTime", "windBearing", "uvIndexTime", "ozone", "temperatureMin", "temperatureMinTime", "temperatureMax", "temperatureMaxTime", "apparentTemperatureMin", "apparentTemperatureMinTime", "apparentTemperatureMax", "apparentTemperatureMaxTime"];
+    var list = ["precipIntensity", "precipIntensityMax", "precipIntensityMaxTime", "precipType", "temperatureHighTime", "temperatureLowTime", "apparentTemperatureHigh", "apparentTemperatureHighTime", "apparentTemperatureLow", "apparentTemperatureLowTime", "dewPoint", "windGust", "windGustTime", "windBearing", "uvIndexTime", "ozone", "temperatureMin", "temperatureMinTime", "temperatureMax", "temperatureMaxTime", "apparentTemperatureMin", "apparentTemperatureMinTime", "apparentTemperatureMax", "apparentTemperatureMaxTime"];
     list.forEach(function (element) {
       _this.$delete(_this.daily, element);
     });
@@ -2067,6 +2083,9 @@ __webpack_require__.r(__webpack_exports__);
     getDay: function getDay(time) {
       //from Current
       return this.$parent.getDay(time);
+    },
+    convertDate: function convertDate(time) {
+      return this.$parent.convertDate(time);
     },
     update: function update(event) {
       this.$emit('clicked', this.daily);
@@ -38139,18 +38158,31 @@ var render = function() {
     _c("div", { staticClass: "selected-container" }, [
       _c("div", { staticClass: "current-container text-center" }, [
         _c("div", { staticClass: "card-header" }, [
-          _c("h5", [_c("span", [_vm._v(_vm._s(_vm.getDay(_vm.date)))])])
+          _c("h5", [
+            _vm._v(
+              _vm._s(_vm.getDay(_vm.date)) +
+                " - " +
+                _vm._s(_vm.convertDate(_vm.date))
+            )
+          ]),
+          _vm._v(" "),
+          _c("h5", [
+            _c("span", { staticClass: "location" }, [
+              _vm._v("details for " + _vm._s(_vm.location))
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-" }, [
+          _c("div", [
             _c("canvas", {
               attrs: { id: _vm.currentIcon, width: "150", height: "150" }
             }),
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
-            _c("h3", [_c("span", [_vm._v(_vm._s(_vm.summary))])])
+            _c("h3", [_c("span", [_vm._v(_vm._s(_vm.summary))])]),
+            _c("br")
           ]),
           _vm._v(" "),
           _c(
@@ -38158,7 +38190,7 @@ var render = function() {
             { staticClass: "current-details" },
             _vm._l(_vm.child, function(item, index) {
               return _c("div", [
-                index == "icon" || index == "time"
+                index == "icon" || index == "time" || index == "summary"
                   ? _c("div")
                   : _c("div", [
                       _c("div", { staticClass: "item" }, [
@@ -38205,15 +38237,25 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "day-container text-center" }, [
     _c("div", { staticClass: "card-header" }, [
-      _c("h5", [_c("span", [_vm._v(_vm._s(_vm.getDay(_vm.time)))])])
+      _c("h5", [
+        _c("span", [
+          _vm._v(
+            _vm._s(_vm.getDay(_vm.time)) +
+              " " +
+              _vm._s(_vm.convertDate(_vm.time))
+          )
+        ])
+      ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card", on: { click: _vm.update } }, [
       _c("canvas", {
-        attrs: { id: "icon" + this.daily.time, width: "40", height: "40" }
+        attrs: { id: "icon" + this.daily.time, width: "60", height: "60" }
       }),
       _vm._v(" "),
-      _c("i", { staticClass: "las la-caret-down", on: { click: _vm.update } })
+      _c("p", { staticClass: "more-info" }, [_vm._v("more")]),
+      _vm._v(" "),
+      _c("i", { staticClass: "las la-caret-down" })
     ])
   ])
 }
