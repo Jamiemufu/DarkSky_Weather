@@ -9,35 +9,39 @@
         <div class="selected-container">
             <div class="current-container text-center">
                 <div class="card-header">
-                     <h5>{{ getDay(date) }} - {{ convertDate(date) }}</h5>
+                    <h5>{{ getDay(date) }} - {{ convertDate(date) }}</h5>
                     <h5>
                         <span class="location">details for {{ location }}</span>
                     </h5>
-                   
                 </div>
-                <div class="card">
-                    <div>
-                        <canvas :id="currentIcon" width="150" height="150"></canvas>
-                        <br>
-                        <h3><span>{{ summary }}</span></h3><br>
-                        
-                    </div>
-                    <div class="current-details">
-                        <!-- get all items from daily component -->
-                        <div v-for="item, index in child">
-                            <!-- hide icon/time item -->
-                            <div v-if="index == 'icon' || index == 'time' || index == 'summary'"></div>
-                            <div v-else>
-                                <div class="item">
-                                    <i v-html="getIcons(index)"></i>
-                                    {{index}}<br>{{item}}
+                    <div class="card">
+                        <div>
+                            <canvas :id="currentIcon" width="150" height="150"></canvas>
+                            <br>
+                            <transition name="fade">
+                                <div v-if="show">
+                                    <h3 v-if="show">{{ summary }}</h3>
                                 </div>
-                            </div>
+                            </transition>
                         </div>
-                        <!-- end of items -->
+                        <transition name="fade">
+                            <div class="current-details" v-if="show">
+                                <!-- get all items from daily component -->
+                                <div v-for="item, index in child" :key="item">
+                                    <!-- hide icon/time item -->
+                                    <div v-if="index == 'icon' || index == 'time' || index == 'summary'"></div>
+                                    <div v-else>
+                                        <div class="item">
+                                            <i v-html="getIcons(index)"></i>
+                                            {{index}}<br>{{item}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of items -->
+                            </div>
+                            <!-- end current details -->
+                        </transition>
                     </div>
-                    <!-- end current details -->
-                </div>
                 <!-- end card -->
             </div>
             <!-- end current-container -->
@@ -54,7 +58,8 @@
         data: function () {
             // store store data from child components
             return {
-                child: ''
+                child: '',
+                show: true,
             }
         },
         computed: {
@@ -89,6 +94,9 @@
         },
         methods: {
             //switch statements for all icons we need
+            toggleShow() {
+                this.isShowing = !this.isShowing;
+            },
             getIcons(index) {
                 switch (index) {
                     case 'precipProbability':
@@ -142,8 +150,13 @@
                         wind: "#F00"
                     }
                 });
-                skycons.set("icon" + this.icon, this.child.icon);
-                skycons.play();
+                this.show = !this.show;
+                setTimeout(() => {
+                    this.show = !this.show;
+                    skycons.set("icon" + this.icon, this.child.icon);
+                    skycons.play();
+                }, 500);
+                
             },
             //unix timestamp functions
             convertDate(time) {

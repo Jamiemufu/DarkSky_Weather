@@ -1886,12 +1886,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["daily", "icon", "location"],
   data: function data() {
     // store store data from child components
     return {
-      child: ''
+      child: '',
+      show: true
     };
   },
   computed: {
@@ -1926,6 +1931,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     //switch statements for all icons we need
+    toggleShow: function toggleShow() {
+      this.isShowing = !this.isShowing;
+    },
     getIcons: function getIcons(index) {
       switch (index) {
         case 'precipProbability':
@@ -1982,6 +1990,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     // data being passed back from child
     onClickChild: function onClickChild(value) {
+      var _this = this;
+
       this.child = value; //re-set icon
 
       var skycons = new Skycons({
@@ -1991,8 +2001,12 @@ __webpack_require__.r(__webpack_exports__);
           wind: "#F00"
         }
       });
-      skycons.set("icon" + this.icon, this.child.icon);
-      skycons.play();
+      this.show = !this.show;
+      setTimeout(function () {
+        _this.show = !_this.show;
+        skycons.set("icon" + _this.icon, _this.child.icon);
+        skycons.play();
+      }, 500);
     },
     //unix timestamp functions
     convertDate: function convertDate(time) {
@@ -38173,42 +38187,68 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _c("div", [
-            _c("canvas", {
-              attrs: { id: _vm.currentIcon, width: "150", height: "150" }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("h3", [_c("span", [_vm._v(_vm._s(_vm.summary))])]),
-            _c("br")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "current-details" },
-            _vm._l(_vm.child, function(item, index) {
-              return _c("div", [
-                index == "icon" || index == "time" || index == "summary"
-                  ? _c("div")
-                  : _c("div", [
-                      _c("div", { staticClass: "item" }, [
-                        _c("i", {
-                          domProps: { innerHTML: _vm._s(_vm.getIcons(index)) }
-                        }),
-                        _vm._v(
-                          "\n                                " + _vm._s(index)
-                        ),
-                        _c("br"),
-                        _vm._v(_vm._s(item) + "\n                            ")
+        _c(
+          "div",
+          { staticClass: "card" },
+          [
+            _c(
+              "div",
+              [
+                _c("canvas", {
+                  attrs: { id: _vm.currentIcon, width: "150", height: "150" }
+                }),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c("transition", { attrs: { name: "fade" } }, [
+                  _vm.show
+                    ? _c("div", [
+                        _vm.show
+                          ? _c("h3", [_vm._v(_vm._s(_vm.summary))])
+                          : _vm._e()
                       ])
-                    ])
-              ])
-            }),
-            0
-          )
-        ])
+                    : _vm._e()
+                ])
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("transition", { attrs: { name: "fade" } }, [
+              _vm.show
+                ? _c(
+                    "div",
+                    { staticClass: "current-details" },
+                    _vm._l(_vm.child, function(item, index) {
+                      return _c("div", { key: item }, [
+                        index == "icon" || index == "time" || index == "summary"
+                          ? _c("div")
+                          : _c("div", [
+                              _c("div", { staticClass: "item" }, [
+                                _c("i", {
+                                  domProps: {
+                                    innerHTML: _vm._s(_vm.getIcons(index))
+                                  }
+                                }),
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(index)
+                                ),
+                                _c("br"),
+                                _vm._v(
+                                  _vm._s(item) +
+                                    "\n                                    "
+                                )
+                              ])
+                            ])
+                      ])
+                    }),
+                    0
+                  )
+                : _vm._e()
+            ])
+          ],
+          1
+        )
       ])
     ])
   ])
