@@ -14,34 +14,34 @@
                         <span class="location">details for {{ location }}</span>
                     </h5>
                 </div>
-                    <div class="card">
-                        <div>
-                            <canvas :id="currentIcon" width="150" height="150"></canvas>
-                            <br>
-                            <transition name="fade">
-                                <div v-if="show">
-                                    <h3 v-if="show">{{ summary }}</h3>
-                                </div>
-                            </transition>
-                        </div>
+                <div class="card">
+                    <div>
+                        <canvas :id="currentIcon" width="150" height="150"></canvas>
+                        <br>
                         <transition name="fade">
-                            <div class="current-details" v-if="show">
-                                <!-- get all items from daily component -->
-                                <div v-for="item, index in child" :key="item">
-                                    <!-- hide icon/time item -->
-                                    <div v-if="index == 'icon' || index == 'time' || index == 'summary'"></div>
-                                    <div v-else>
-                                        <div class="item">
-                                            <i v-html="getIcons(index)"></i>
-                                            {{index}}<br>{{item}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- end of items -->
+                            <div v-if="show">
+                                <h3 v-if="show">{{ summary }}</h3>
                             </div>
-                            <!-- end current details -->
                         </transition>
                     </div>
+                    <transition name="fade">
+                        <div class="current-details" v-if="show">
+                            <!-- get all items from daily component -->
+                            <div v-for="item, index in child" :key="index">
+                                <!-- hide icon/time item -->
+                                <div v-if="index == 'icon' || index == 'time' || index == 'summary'"></div>
+                                <div v-else>
+                                    <div class="item">
+                                        <i v-html="getIcons(index)"></i>
+                                        {{index}}<br>{{item}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end of items -->
+                        </div>
+                        <!-- end current details -->
+                    </transition>
+                </div>
                 <!-- end card -->
             </div>
             <!-- end current-container -->

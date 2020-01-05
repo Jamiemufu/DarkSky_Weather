@@ -11390,6 +11390,18 @@ a.text-dark:focus {
   outline: none;
 }
 
+#consent {
+  margin-top: 10px;
+  height: 20px;
+  outline: none;
+  border: none;
+}
+
+#consent input[type=checkbox]:focus + label::before {
+  outline: none !important;
+  border: none;
+}
+
 .selected-container {
   margin: 0 auto;
   max-width: 1000px;

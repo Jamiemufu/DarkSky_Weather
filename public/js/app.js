@@ -38219,7 +38219,7 @@ var render = function() {
                     "div",
                     { staticClass: "current-details" },
                     _vm._l(_vm.child, function(item, index) {
-                      return _c("div", { key: item }, [
+                      return _c("div", { key: index }, [
                         index == "icon" || index == "time" || index == "summary"
                           ? _c("div")
                           : _c("div", [
@@ -38230,13 +38230,13 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(
-                                  "\n                                        " +
+                                  "\n                                    " +
                                     _vm._s(index)
                                 ),
                                 _c("br"),
                                 _vm._v(
                                   _vm._s(item) +
-                                    "\n                                    "
+                                    "\n                                "
                                 )
                               ])
                             ])

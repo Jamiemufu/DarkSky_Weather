@@ -26,3 +26,14 @@
         }
     }
 }
+
+#consent {
+    margin-top: 10px;
+    height: 20px;
+    outline: none;
+    border: none;
+    input[type=checkbox]:focus+label::before {
+        outline: none !important;
+        border: none;
+    }
+}
