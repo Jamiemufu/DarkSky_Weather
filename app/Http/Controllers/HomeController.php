@@ -94,8 +94,4 @@ class HomeController extends Controller
         return redirect('/');
     }
 
-    /**
-     * TODO
-     * Sunday email subsciption service
-     */
 }

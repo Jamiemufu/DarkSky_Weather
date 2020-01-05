@@ -36,11 +36,13 @@ class sendWeeklyEmail extends Command
 
     /**
      * get daily results and users send to mailable
+     * only get users who have consented
      *
      * @return void
      */
     public function handle()
     {
+        
         $users = User::where('consent', 1)->get();
 
         foreach ($users as $user)

@@ -2,8 +2,6 @@
 
 namespace App\Mail;
 
-//need to get darkSky API results here
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
