@@ -48,12 +48,19 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {
+    {   
+        // check for consent or assign default
+        if(!isset($data['consent']))
+        {
+            $data['consent'] = "nil";
+        }
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'preferred_location' => ['required', 'string', 'min:4', 'max:255'],
+            'consent' => [],
         ]);
     }
 
@@ -69,7 +76,7 @@ class RegisterController extends Controller
         $address = Geocoder::getCoordinatesForAddress($data['preferred_location']);
         $lat = $address['lat'];
         $lng = $address['lng'];
-    
+        
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -77,6 +84,7 @@ class RegisterController extends Controller
             'preferred_location' => $data['preferred_location'],
             'lat' => $lat,
             'lng' => $lng,
+            'consent' => $data['consent'],
         ]);
     }
 }

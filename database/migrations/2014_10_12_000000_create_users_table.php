@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('preferred_location');
             $table->string('lat');
             $table->string('lng');
+            $table->string('consent');
             $table->rememberToken();
             $table->timestamps();
         });

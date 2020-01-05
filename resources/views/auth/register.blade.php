@@ -69,6 +69,14 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="consent" class="col-md-9 text-md-right">{{ __('Please tick the checkbox if you want to receive weekly emails on your Weather Summary') }}</label>
+
+                            <div class="col-md-1 text-left" id="consent">
+                                <input id="consent" type="checkbox" class="form-control" name="consent" checked value="1">
+                            </div>
+                        </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
