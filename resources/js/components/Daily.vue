@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    props: ["daily", "icon", "summary"],
+    props: ["daily", "icon"],
     computed: {
         time() {
             return this.daily.time;
@@ -27,7 +27,6 @@ export default {
         //get and set icon
         //main, moon, fog, fogbank, light_cloud, cloud, dark_cloud,
         // thunder, snow, hail, sleet, wind, leaf, rain, sun
-        var currentIcon = this.icon
         var skycons = new Skycons({
             monochrome: false,
             color: {

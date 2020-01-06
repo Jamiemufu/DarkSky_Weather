@@ -14,6 +14,7 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/forecast', 'HomeController@preferredForecast')->name('preferred');
 Route::post('/', 'HomeController@search')->name('search');
 Route::get('/show', 'HomeController@show')->name('show');
 Route::put('/update/{id}', 'HomeController@update')->name('edit');

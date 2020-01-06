@@ -26,6 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('page.home');
+    }
+
+    /**
+     * preferred forecast json response for axios
+     *
+     * @return response JSON location and forecast
+     */
+    public function preferredForecast()
+    {
         $user = Auth::user();
         $lat = $user->lat;
         $lng = $user->lng;
@@ -35,9 +45,9 @@ class HomeController extends Controller
                     ->location($lat, $lng)
                     ->forecast();
         
-        $forecast = $forecast->toArray();
-    
-        return view('page.home', compact('forecast', 'location'));
+        $forecast = $forecast->daily()->toArray();
+        
+        return response()->json([$forecast, $location]);
     }
 
     /**
@@ -45,24 +55,24 @@ class HomeController extends Controller
      *
      * @param  mixed $request
      *
-     * @return void
+     * @return response JSON location and forecast
      */
     public function search(Request $request)
     {
-        $location = $request->input('search');
+        $location = $request->location;
         $coords = Geocoder::getCoordinatesForAddress($location);
 
         $forecast = (new DarkSkyApi(env('DARK_SKY_KEY')))
                     ->location($coords['lat'], $coords['lng'])
                     ->forecast();
         
-        $forecast = $forecast->toArray();
+        $forecast = $forecast->daily()->toArray();
     
-        return view('page.home', compact('forecast', 'location'));
+        return response()->json([$forecast, $location]);
     }
 
     /**
-     * show edit view
+     * show edit preferred location view
      *
      * @return void
      */
@@ -76,7 +86,7 @@ class HomeController extends Controller
     }
 
     /**
-     * update resource
+     * update preferred location
      *
      * @param Request $request
      * 

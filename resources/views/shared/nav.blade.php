@@ -39,10 +39,6 @@
                                 <a class="dropdown-item" href="{{ route('home') }}">
                                     Home
                                 </a>
-                                <a class="dropdown-item" href="{{ route('home') }}">
-                                    Preferred Location Forecast
-                                </a>
-                                
                                 <a class="dropdown-item" href="{{ route('show') }}">
                                    Edit Preferred Location
                                 </a>
