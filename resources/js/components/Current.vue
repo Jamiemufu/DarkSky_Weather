@@ -82,7 +82,7 @@
 <script>
     export default {
         props: [],
-        data: function () {
+        data() {
             // data for storage or child props
             return {
                 child: '',
@@ -176,7 +176,7 @@
             onClickChild(value) {
                 this.child = value;
                 this.show = !this.show;
-                this.icon = this.child.icon
+                this.icon = this.child.icon;
                 setTimeout(() => {
                     this.show = !this.show;
 

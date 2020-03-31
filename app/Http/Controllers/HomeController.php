@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use DmitryIvanov\DarkSkyApi\DarkSkyApi;
 use Geocoder;
+use Illuminate\View\View;
+use Throwable;
+
 class HomeController extends Controller
 {
     /**
@@ -22,7 +30,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {
@@ -32,7 +40,8 @@ class HomeController extends Controller
     /**
      * preferred forecast json response for axios
      *
-     * @return response JSON location and forecast
+     * @return JsonResponse
+     * @throws Throwable
      */
     public function preferredForecast()
     {
@@ -44,18 +53,19 @@ class HomeController extends Controller
         $forecast = (new DarkSkyApi(env('DARK_SKY_KEY')))
                     ->location($lat, $lng)
                     ->forecast();
-        
+
         $forecast = $forecast->daily()->toArray();
-        
+
         return response()->json([$forecast, $location]);
     }
 
     /**
      * search for weather
      *
-     * @param  mixed $request
+     * @param mixed $request
      *
-     * @return response JSON location and forecast
+     * @return JsonResponse
+     * @throws Throwable
      */
     public function search(Request $request)
     {
@@ -65,16 +75,16 @@ class HomeController extends Controller
         $forecast = (new DarkSkyApi(env('DARK_SKY_KEY')))
                     ->location($coords['lat'], $coords['lng'])
                     ->forecast();
-        
+
         $forecast = $forecast->daily()->toArray();
-    
+
         return response()->json([$forecast, $location]);
     }
 
     /**
      * show edit preferred location view
      *
-     * @return void
+     * @return Factory|View
      */
     public function show()
     {
@@ -89,15 +99,16 @@ class HomeController extends Controller
      * update preferred location
      *
      * @param Request $request
-     * 
-     * @param $id      
+     *
+     * @param $id
+     * @return RedirectResponse|Redirector
      */
     public function update(Request $request, $id)
-    {   
+    {
         $request->validate([
             'location' => 'required|min:3'
         ]);
-        
+
         $location = ['preferred_location' => $request->input('location')];
         User::where('id', $id)->update($location);
 

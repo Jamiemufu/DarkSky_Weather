@@ -45,11 +45,11 @@ class RegisterController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
-     * 
+     *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-    {   
+    {
         // check for consent or assign default
         if(!isset($data['consent']))
         {
@@ -69,16 +69,20 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * 
-     * @return \App\User
+     *
+     * @return User
      */
     protected function create(array $data)
-    {   
+    {
         //geolocate preferred_address and store
         $address = Geocoder::getCoordinatesForAddress($data['preferred_location']);
         $lat = $address['lat'];
         $lng = $address['lng'];
-        
+
+        if(!isset($data['consent'])) {
+            $data['consent'] = 'no';
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

@@ -39,8 +39,31 @@ export default {
 
         // list of properties to remove that we don't need
         var list = [
-            "precipIntensity", "precipIntensityMax", "precipIntensityMaxTime", "precipType", "temperatureHighTime", "temperatureLowTime", "apparentTemperatureHigh", "apparentTemperatureHighTime", "apparentTemperatureLow", "apparentTemperatureLowTime", "dewPoint", "windGust", "windGustTime", "windBearing", "uvIndexTime", "ozone", "temperatureMin", "temperatureMinTime", "temperatureMax", "temperatureMaxTime", "apparentTemperatureMin", "apparentTemperatureMinTime", "apparentTemperatureMax", "apparentTemperatureMaxTime"
-        ]
+            "precipIntensity",
+            "precipIntensityMax",
+            "precipIntensityMaxTime",
+            "precipType",
+            "temperatureHighTime",
+            "temperatureLowTime",
+            "apparentTemperatureHigh",
+            "apparentTemperatureHighTime",
+            "apparentTemperatureLow",
+            "apparentTemperatureLowTime",
+            "dewPoint",
+            "windGust",
+            "windGustTime",
+            "windBearing",
+            "uvIndexTime",
+            "ozone",
+            "temperatureMin",
+            "temperatureMinTime",
+            "temperatureMax",
+            "temperatureMaxTime",
+            "apparentTemperatureMin",
+            "apparentTemperatureMinTime",
+            "apparentTemperatureMax",
+            "apparentTemperatureMaxTime"
+        ];
 
         list.forEach(element => {
             this.$delete(this.daily, element)

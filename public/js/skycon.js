@@ -661,7 +661,7 @@
     sun(ctx, t, w * 0.625, h * 0.325, s * 0.65, s * STROKE * 0.8, color.sun || color);
     rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
     cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
-  }
+  };
 
   Skycons.SHOWERS_NIGHT = function(ctx, t, color) {
     var w = ctx.canvas.width,
@@ -671,7 +671,7 @@
     moon(ctx, t, w * 0.667, h * 0.325, s * 0.75, s * STROKE * 0.8, color.moon || color);
     rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
     cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
-  }
+  };
 
   Skycons.SLEET = function(ctx, t, color) {
     var w = ctx.canvas.width,
@@ -731,7 +731,7 @@
     sun(ctx, t, w * 0.625, h * 0.325, s * 0.65, s * STROKE * 0.8, color.sun || color);
     snow(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.snow || color);
     cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
-  }
+  };
 
   Skycons.SNOW_SHOWERS_NIGHT = function(ctx, t, color) {
     var w = ctx.canvas.width,
@@ -741,7 +741,7 @@
     moon(ctx, t, w * 0.667, h * 0.325, s * 0.75, s * STROKE * 0.8, color.moon || color);
     snow(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.snow || color);
     cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
-  }
+  };
 
   Skycons.WIND = function(ctx, t, color) {
     var w = ctx.canvas.width,
@@ -767,7 +767,7 @@
         h = ctx.canvas.height,
         s = Math.min(w, h);
 
-    thunderbolts(ctx, t, w * 0.5, h * 0.825, s * 0.9, color.thunder || color)
+    thunderbolts(ctx, t, w * 0.5, h * 0.825, s * 0.9, color.thunder || color);
     cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.dark_cloud || color);
   };
 
@@ -777,7 +777,7 @@
         s = Math.min(w, h);
 
     rain(ctx, t, w * 0.5, h * 0.5, s * 0.9, s * STROKE, color.rain || color);
-    thunderbolts(ctx, t, w * 0.5, h * 0.825, s * 0.9, color.thunder || color)
+    thunderbolts(ctx, t, w * 0.5, h * 0.825, s * 0.9, color.thunder || color);
     cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.dark_cloud || color);
   };
 
@@ -786,7 +786,7 @@
         h = ctx.canvas.height,
         s = Math.min(w, h);
 
-    thunderbolts(ctx, t, w * 0.375, h * 0.85, s * 0.7, color.thunder || color)
+    thunderbolts(ctx, t, w * 0.375, h * 0.85, s * 0.7, color.thunder || color);
     sun(ctx, t, w * 0.625, h * 0.325, s * 0.65, s * STROKE * 0.8, color.sun || color);
     rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
     cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.dark_cloud || color);
@@ -797,7 +797,7 @@
         h = ctx.canvas.height,
         s = Math.min(w, h);
 
-    thunderbolts(ctx, t, w * 0.375, h * 0.85, s * 0.7, color.thunder || color)
+    thunderbolts(ctx, t, w * 0.375, h * 0.85, s * 0.7, color.thunder || color);
     moon(ctx, t, w * 0.667, h * 0.325, s * 0.75, s * STROKE * 0.8, color.moon || color);
     rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
     cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.dark_cloud || color);
